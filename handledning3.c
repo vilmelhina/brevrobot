@@ -1,6 +1,5 @@
 //
-//  få roboten att svänga
-//  INTE testad än!
+//  inför handledning 3!
 //
 
 #include <stdio.h>
