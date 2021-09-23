@@ -66,11 +66,11 @@ int main( void )
     tacho_stop( MOTOR_BOTH );
     
     //vinka på motor c
-    tacho_set_speed_sp( MOTOR_C, max_hastighet * (0.5) );  // Sätter hastigheten på båda motorerna till 30% av maxhastigheten, positiv eftersom den ska framåt
+    tacho_set_speed_sp( MOTOR_C, max_hastighet * (0.5) );  // Sätter hastigheten på båda motor c till positiv
     tacho_run_forever(  MOTOR_C );
     Sleep( 3000 );
     tacho_stop( MOTOR_C );
-    tacho_set_speed_sp( MOTOR_C, max_hastighet * (-0.5) );  // Sätter hastigheten på båda motorerna till 30% av maxhastigheten, positiv eftersom den ska framåt
+    tacho_set_speed_sp( MOTOR_C, max_hastighet * (-0.5) );  // Sätter hastigheten på båda motor c till negativ
     tacho_run_forever(  MOTOR_C );
     Sleep( 3000 );
     tacho_stop( MOTOR_C );
