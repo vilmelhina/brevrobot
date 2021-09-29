@@ -5,9 +5,6 @@
 //  Created by Vilhelmina Andersson on 2021-09-29.
 //
 
-#ifndef max_h
-#define max_h
-
 #include <stdio.h>
 #include "brick.h"
 #include <unistd.h>
