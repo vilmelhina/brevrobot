@@ -22,7 +22,7 @@
 
 POOL_T gyroSensor;
 
-void initialize(){
+int initialize(){
     if ( !brick_init()) return ( 1 ); /*Instansierar klossen och tillåter remote-connection*/
     printf( "*** ( EV3 ) Hello! ***\n" );
     Sleep(2000);

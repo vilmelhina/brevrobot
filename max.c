@@ -9,7 +9,7 @@
 
 int main( void )
 {
-    initialize();
+    int initialize = initialize();
     while(!TouchReturnValue){
         TouchReturnValue = sensor_get_value(0, touchSensor, 0);
         
