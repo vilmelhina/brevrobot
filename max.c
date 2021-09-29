@@ -66,7 +66,7 @@ int main( void )
         
         printf("Distance: %d\n", measure_distance() );
     
-    }*/ KOMMENTERA UT NÄR FUNKTIONEN ÄR KLAR
+    }*/ //KOMMENTERA UT NÄR FUNKTIONEN ÄR KLAR
     
     //testa get_max_speed och time_forward och go
     /*int speed = 0.3 * get_max_speed();
