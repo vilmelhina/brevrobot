@@ -23,7 +23,7 @@ int gyroValue1 = 0;
 
 int main( void )
 {  
-
+int a = 0;
     if ( !brick_init()) return ( 1 ); /*Instansierar klossen och tillåter remote-connection*/
     printf( "*** ( EV3 ) Hello! ***\n" );
     Sleep(2000);
@@ -43,7 +43,7 @@ int main( void )
 
 
 
-    while(!gyroSensor){
+    while(a==0){
 
         /*Vissa modes kan ha fler utdata, notera första parametern i sensor_get_value */
         gyroValue0 = sensor_get_value(0, gyroSensor, 0);
