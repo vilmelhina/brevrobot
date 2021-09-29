@@ -1,6 +1,6 @@
 //
 //  max.c
-//  
+//  testar alla de simpla funktionerna som vi ska skriva
 //
 //  Created by Vilhelmina Andersson on 2021-09-29.
 //
@@ -19,12 +19,19 @@
 #define SENSOR_GYRO        IN2
 #define SENSOR_3        IN3
 #define SENSOR_4        IN4
+#define MOTOR_BOTH         ( MOTOR_LEFT | MOTOR_RIGHT ) /* Bitvis ELLER ger att båda motorerna styrs samtidigt */
 
 POOL_T touchSensor;
 int TouchReturnValue = 0;
+int max_hastighet;         /* variabel för max hastighet på motorn */
 POOL_T gyroSensor;
 
-int getAngle();
+int get_angle();
+void drop_off();
+int measure_distance();
+int get_max_speed();
+int time_forward(int, int);
+void go(int,int);
 
 int main( void )
 {
@@ -38,35 +45,49 @@ int main( void )
         return(0);
     }
     
-    /*Registrerar en sensor på sensor variabeln*/
-    touchSensor = sensor_search( LEGO_EV3_TOUCH ); //
+    touchSensor = sensor_search( LEGO_EV3_TOUCH );  // Registrerar en touch sensor på touchSensor-variabeln
     gyroSensor = sensor_search(LEGO_EV3_GYRO);
-    /*Man kan antingen använda "Brick" bibliotekets förbyggda modes*/
-    touch_set_mode_touch(touchSensor);
+    touch_set_mode_touch(touchSensor); //anger vilken "mode" sensorn skall ha
+    sensor_set_mode(gyroSensor, LEGO_EV3_GYRO_GYRO_G_AND_A); /*eller kolla i sensor.h filen på vilka modes som finns för alla olika sensorer*/
     
-    /*eller kolla i sensor.h filen på vilka modes som finns för alla olika sensorer*/
-    sensor_set_mode(gyroSensor, LEGO_EV3_GYRO_GYRO_G_AND_A);
-    
+    //testa getAngle tills touch trycks in
     while(!TouchReturnValue){
         TouchReturnValue = sensor_get_value(0, touchSensor, 0);
         
-        printf("Gyro: %d\n", getAngle() );
+        printf("Gyro: %d\n", get_angle() );
     
-    }//Så länge touch sensorn inte är intryckt kommer while loopen köras
+    }
+    //testa drop_off
+    drop_off();
     
-
+    //testa measure_distance tills touch sensorn trycks in
+    while(!TouchReturnValue){
+        TouchReturnValue = sensor_get_value(0, touchSensor, 0);
+        
+        printf("Gyro: %d\n", measure_distance() );
+    
+    }
+    
+    //testa get_max_speed och time_forward och go
+    /*int speed = 0.3 * get_max_speed();
+    int distance = 20;
+    time_forward(speed,distance);
+     go(speed,time);
+     */
+    //KOMMENTERA UT NÄR FUNKTIONERNA ÄR KLARA
+    
     brick_uninit();
     printf( "dying...\n" );
     return ( 0 );
 
 }
 
-int getAngle(){
+int get_angle(){
     int angle = sensor_get_value(0, gyroSensor, 0);
     return angle;
 }
 
-int dropOff(){
+void drop_off(){
     tacho_set_speed_sp( MOTOR_C, max_hastighet * (0.5) );  // Sätter hastigheten på båda motor c till positiv
     tacho_run_forever(  MOTOR_C );
     Sleep( 3000 );
@@ -75,4 +96,20 @@ int dropOff(){
     tacho_run_forever(  MOTOR_C );
     Sleep( 3000 );
     tacho_stop( MOTOR_C );
+}
+
+int measure_distance(){
+    return 0;
+}
+
+int get_max_speed(){
+    return 0;
+}
+
+int time_forward(int speed, int distance){
+    return 0;
+}
+
+void go(int speed, int time){
+    
 }
