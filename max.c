@@ -11,8 +11,8 @@
 
 #define Sleep( msec ) usleep(( msec ) * 1000 ) /*Definerar sleep där Sleep(1000)= 1 sekund*/
 
-#define MOTOR_A            OUTA
-#define MOTOR_B            OUTB
+#define MOTOR_RIGHT        OUTA
+#define MOTOR_LEFT        OUTB
 #define MOTOR_C            OUTC
 #define MOTOR_D            OUTD
 #define SENSOR_TOUCH    IN1
