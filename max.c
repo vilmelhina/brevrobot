@@ -96,7 +96,6 @@ void drop_off(){
         "Anslut höger motor i port B.\n"
         );
           brick_uninit();
-        return ( 0 );  /* Stänger av sig om motorer ej är inkopplade */
     }
     tacho_set_speed_sp( MOTOR_C, max_hastighet * (0.5) );  // Sätter hastigheten på båda motor c till positiv
     tacho_run_forever(  MOTOR_C );
