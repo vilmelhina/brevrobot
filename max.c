@@ -61,12 +61,12 @@ int main( void )
     drop_off();
     
     //testa measure_distance tills touch sensorn trycks in
-    while(!TouchReturnValue){
+    /*while(!TouchReturnValue){
         TouchReturnValue = sensor_get_value(0, touchSensor, 0);
         
-        printf("Gyro: %d\n", measure_distance() );
+        printf("Distance: %d\n", measure_distance() );
     
-    }
+    }*/ KOMMENTERA UT NÄR FUNKTIONEN ÄR KLAR
     
     //testa get_max_speed och time_forward och go
     /*int speed = 0.3 * get_max_speed();
@@ -88,6 +88,16 @@ int get_angle(){
 }
 
 void drop_off(){
+    if ( tacho_is_plugged( MOTOR_BOTH, TACHO_TYPE__NONE_ )) {  /* TACHO_TYPE__NONE_ = Alla typer av motorer */
+        max_hastighet = tacho_get_max_speed( MOTOR_LEFT, 0 );    /* Kollar maxhastigheten som motorn kan ha */
+        tacho_reset( MOTOR_BOTH );
+    } else {
+        printf( "Anslut vänster motor i port A,\n"
+        "Anslut höger motor i port B.\n"
+        );
+          brick_uninit();
+        return ( 0 );  /* Stänger av sig om motorer ej är inkopplade */
+    }
     tacho_set_speed_sp( MOTOR_C, max_hastighet * (0.5) );  // Sätter hastigheten på båda motor c till positiv
     tacho_run_forever(  MOTOR_C );
     Sleep( 3000 );
