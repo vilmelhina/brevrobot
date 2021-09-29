@@ -28,25 +28,22 @@ int main( void )
     printf( "*** ( EV3 ) Hello! ***\n" );
     Sleep(2000);
 
-    if(!sensor_is_plugged((SENSOR_TOUCH|SENSOR_GYRO), SENSOR_TYPE__NONE_)) {
+    if(!sensor_is_plugged((SENSOR_GYRO), SENSOR_TYPE__NONE_)) {
         printf("Stoppa in sensorer i port 1 och 2\n");
         brick_uninit();
         return(0);
     }
     /*Registrerar en sensor på sensor variabeln*/
-    touchSensor = sensor_search( LEGO_EV3_US ); //
     gyroSensor = sensor_search(LEGO_EV3_GYRO);
 
     /*Man kan antingen använda "Brick" bibliotekets förbyggda modes*/
-    touch_set_mode_us(US);
 
     /*eller kolla i sensor.h filen på vilka modes som finns för alla olika sensorer*/
     sensor_set_mode(gyroSensor, LEGO_EV3_GYRO_GYRO_G_AND_A);
 
 
 
-    while(!TouchReturnValue){
-        TouchReturnValue = sensor_get_value(0, touchSensor, 0);
+    while(!gyroSensor){
 
         /*Vissa modes kan ha fler utdata, notera första parametern i sensor_get_value */
         gyroValue0 = sensor_get_value(0, gyroSensor, 0);
