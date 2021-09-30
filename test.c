@@ -43,7 +43,7 @@ int main( void )
 	/* Om man vill köra bakåt anger man negativ hastighet, till exempel max_hastighet * (-0.5) */
 	
 	tacho_run_forever(  MOTOR_BOTH );
-	Sleep( 5000 ); 
+	Sleep( 16700 ); 
 	tacho_stop( MOTOR_BOTH );
 
 	brick_uninit();
