@@ -1,8 +1,7 @@
 //
-//  max.c
-//  testar alla de simpla funktionerna som vi ska skriva
+//  max_1.c
+//  uppgift 1!!!!!!!!
 //
-//  Created by Vilhelmina Andersson on 2021-09-29.
 //
 
 #include <stdio.h>
@@ -17,15 +16,17 @@
 #define MOTOR_D           OUTD
 #define SENSOR_TOUCH      IN1
 #define SENSOR_GYRO       IN2
-#define SENSOR_3          IN3
+#define SENSOR_US         IN3
 #define SENSOR_4          IN4
 #define MOTOR_BOTH        ( MOTOR_LEFT | MOTOR_RIGHT ) /* Bitvis ELLER ger att båda motorerna styrs samtidigt */
 
-POOL_T touchSensor;
-POOL_T gyroSensor;
+POOL_T touch_sensor;
+POOL_T gyro_sensor;
+POOL_T sonic_sensor;
+
+int max_hastighet;         /* variabel för max hastighet på motorn */
 
 void initialize_max();
-int nearest_wall();
 int find_wall();
 void go(int);
 void turn_to_angle(int);
@@ -44,7 +45,7 @@ int main( void )
     nearest_wall = find_wall();
     
     //snurra till 90 grader från närmaste väggen
-    turn_to_angle(nearest_wall + 90); //ändra till -90 för uppgift 2
+    turn_to_angle(nearest_wall + 90); //ändra till -90 för uppgift 2 & 4
     
     //åk 250cm
     go(250);
@@ -56,32 +57,78 @@ int main( void )
     
     //lämna av paketet
     drop_off();
-
-}
-
-
-initialize_max(){
     
+    brick_uninit(); //funktion från biblioteket
+    return(0);
+
 }
 
-void initialize_max(){
+
+//en funktion som startar upp och registrerar sensorer och lägen på sensorer, allt som behöver göras innan programmet börjar. Detta kommer i huvudsak från filerna exempelGyroTouch.c och exempelMotorTouch-2.c
+int initialize_max(){
+    if ( !brick_init()) return ( 1 ); /* Initialiserar EV3-klossen */
+    printf( "*** ( EV3 ) Hello! ***\n" );
+    Sleep( 2000 );
     
-}
-int nearest_wall(){
+    if ( tacho_is_plugged( MOTOR_BOTH, TACHO_TYPE__NONE_ )) {  /* TACHO_TYPE__NONE_ = Alla typer av motorer */
+        max_hastighet = tacho_get_max_speed( MOTOR_LEFT, 0 );    /* Kollar maxhastigheten som motorn kan ha */
+        tacho_reset( MOTOR_BOTH );
+    } else {
+        printf( "Anslut vänster motor i port A,\n"
+        "Anslut höger motor i port B.\n"
+        );
+        Sleep( 2000 );
+          brick_uninit();
+        return ( 0 );  /* Stänger av sig om motorer ej är inkopplade */
+    }
+    
+    //kolla att touch och gyro är inkopplade!!!
+    if(!sensor_is_plugged((SENSOR_TOUCH|SENSOR_GYRO), SENSOR_TYPE__NONE_)) {
+        printf("Stoppa in sensorer i port 1 och 2\n");
+        brick_uninit();
+        return(0);
+    }
+    
+    // TOUCH SENSOR
+    touch_sensor = sensor_search( LEGO_EV3_TOUCH ); // Registrerar en touch sensor på touch_sensor-variabeln
+    touch_set_mode_touch(touch_sensor); // anger vilken "mode" sensorn skall ha
+    
+    //SONIC SENSOR
+    sonic_sensor = sensor_search(LEGO_EV3_US);
+    us_set_mode_us_dist_cm(sonic_sensor);
+    
+    //GYRO SENSOR
+    sensor_set_mode(gyroSensor, LEGO_EV3_GYRO_GYRO_G_AND_A);
+    
     return 0;
 }
+
+//hittar vinkeln till närmaste väggen och returnerar det värdet
 int find_wall(){
     return 0;
 }
+
+//åker det givna avståndet rakt framåt (modifierad version av koden VILLE & ELIN skrev)
 void go(int distance){
-    
+    float speedPercentage = 0.3; //den ska åka 30% av maxhastigheten
+    int seconds = (distance/0.15) * 1000; //räknar ut antal millisekunder den ska åka
+    tacho_set_speed_sp( MOTOR_BOTH, max_hastighet * speedPercentage ); //sätter hastigheten
+    tacho_run_forever(  MOTOR_BOTH ); //startar motorerna
+    Sleep( seconds * 1000 ); //väntar i så många sekunder som räknats ut
+    tacho_stop( MOTOR_BOTH ); //stoppar motorerna
 }
+
+//vrider sig till den givna vinkeln
 void turn_to_angle(int angle){
     
 }
+
+//åker framåt tills väggen framför är så nära som det givna värdet
 void go_until_distance(int distance){
     
 }
+
+//lastar av sin post!
 void drop_off(){
     return 0;
 }
