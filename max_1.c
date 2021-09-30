@@ -105,7 +105,12 @@ int initialize_max(){
 
 //hittar vinkeln till närmaste väggen och returnerar det värdet
 int find_wall(){
-    return 0;
+    //get start_angle
+    //start turning
+    //while |current_angle - start_angle| < 360 ?????
+        //if distance forward < smallest distance forward, update smallest distance forward and angle for it
+    //stop turning
+    return 0; //return the angle that had the smallest distance forward
 }
 
 //åker det givna avståndet rakt framåt (modifierad version av koden VILLE & ELIN skrev)
@@ -119,16 +124,23 @@ void go(int distance){
 }
 
 //vrider sig till den givna vinkeln
-void turn_to_angle(int angle){
-    
+void turn_to_angle(int goal_angle){
+    //start turning
+    //while goal_angle != current_angle
+        //update current_angle
+    //stop turning
 }
 
 //åker framåt tills väggen framför är så nära som det givna värdet
-void go_until_distance(int distance){
-    
+void go_until_distance(int distance_goal){
+    //start driving
+    //while distance_forward < distance_goal
+        //update distance_forward
+    //stop driving
 }
 
 //lastar av sin post!
 void drop_off(){
-    return 0;
+    // sänk ner gaffeln
+    // ta upp gaffeln igen
 }
