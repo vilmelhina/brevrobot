@@ -98,19 +98,33 @@ int initialize_max(){
     us_set_mode_us_dist_cm(sonic_sensor);
     
     //GYRO SENSOR
-    sensor_set_mode(gyroSensor, LEGO_EV3_GYRO_GYRO_G_AND_A);
+    /*Registrerar en sensor på sensor variabeln*/
+    gyro_sensor = sensor_search(LEGO_EV3_GYRO);
+    sensor_set_mode(gyro_sensor, LEGO_EV3_GYRO_GYRO_G_AND_A);
+    
     
     return 0;
 }
 
 //hittar vinkeln till närmaste väggen och returnerar det värdet
 int find_wall(){
-    //get start_angle
-    //start turning
-    //while |current_angle - start_angle| < 360 ?????
-        //if distance forward < smallest distance forward, update smallest distance forward and angle for it
-    //stop turning
-    return 0; //return the angle that had the smallest distance forward
+    int angle = sensor_get_value(0, gyro_sensor, 0);
+    int min_angle = angle;
+    int min_distance = sensor_get_value(0, us_sensor,0);
+    int current_distance;
+    
+    for (int i=0; i<361; i++) {
+        current_distance = sensor_get_value(0, us_sensor,0); //avstånd fram just nu
+        int angle = sensor_get_value(0, gyro_sensor, 0); //uppdatera vinkeln den står i just nu
+        
+        if(current_distance < min_distance) {
+            min distance = current_distance;
+            min_angle = angle;
+        }
+        turn_to_angle(angle + 1); //vrid 1 grad
+    }
+    
+    return min_angle; //return the angle that had the smallest distance forward
 }
 
 //åker det givna avståndet rakt framåt (modifierad version av koden VILLE & ELIN skrev)
@@ -125,18 +139,31 @@ void go(int distance){
 
 //vrider sig till den givna vinkeln
 void turn_to_angle(int goal_angle){
-    //start turning
-    //while goal_angle != current_angle
-        //update current_angle
-    //stop turning
+    int current_angle = sensor_get_value(0, gyro_sensor, 0);
+    
+    tacho_set_speed_sp( MOTOR_RIGHT, max_hastighet * (-0.1) );
+    tacho_set_speed_sp( MOTOR_LEFT, max_hastighet * (0.1) );
+    tacho_run_forever(  MOTOR_BOTH ); //start turning
+    
+    while (goal_angle != current_angle) {
+        current_angle = sensor_get_value(0, gyro_sensor, 0);
+    }
+    tacho_stop( MOTOR_BOTH ); //stop turning
 }
 
 //åker framåt tills väggen framför är så nära som det givna värdet
 void go_until_distance(int distance_goal){
-    //start driving
-    //while distance_forward < distance_goal
-        //update distance_forward
-    //stop driving
+    int distance = sensor_get_value(0, us_sensor,0);
+    
+    tacho_set_speed_sp( MOTOR_RIGHT, max_hastighet * (0.3) );
+    tacho_set_speed_sp( MOTOR_LEFT, max_hastighet * (0.3) );
+    tacho_run_forever(  MOTOR_BOTH ); //start driving
+    
+    while(distance > distance_goal){
+        distance = sensor_get_value(0, us_sensor,0);
+    }
+    
+    tacho_stop( MOTOR_BOTH ); //stop driving
 }
 
 //lastar av sin post!
