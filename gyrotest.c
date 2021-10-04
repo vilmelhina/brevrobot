@@ -41,6 +41,9 @@ int main( void )
 {
     int nearest_wall;
     
+    //starta upp grejerna
+    int initialize = initialize_max();
+    
     while(1){
         printf("Angle: %d", get_angle());
     }
