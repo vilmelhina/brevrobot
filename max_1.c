@@ -15,8 +15,8 @@
 #define MOTOR_C           OUTC
 #define MOTOR_D           OUTD
 #define SENSOR_TOUCH      IN1
-#define SENSOR_GYRO       IN2
-#define SENSOR_US         IN3
+#define SENSOR_US         IN2
+#define SENSOR_GYRO       IN3
 #define SENSOR_4          IN4
 #define MOTOR_BOTH        ( MOTOR_LEFT | MOTOR_RIGHT ) /* Bitvis ELLER ger att båda motorerna styrs samtidigt */
 
@@ -26,7 +26,7 @@ POOL_T sonic_sensor;
 
 int max_hastighet;         /* variabel för max hastighet på motorn */
 
-void initialize_max();
+int initialize_max();
 int find_wall();
 void go(int);
 void turn_to_angle(int);
@@ -121,7 +121,7 @@ int find_wall(){
         int angle = get_angle(); //uppdatera vinkeln den står i just nu
         printf("Angle: %d", angle);
         if(current_distance < min_distance) {
-            min distance = current_distance;
+            min_distance = current_distance;
             min_angle = angle;
         }
         turn_to_angle(angle + 1); //vrid 1 grad
@@ -185,7 +185,7 @@ void drop_off(){
 }
 
 int get_distance(){
-    return sensor_get_value(0, us_sensor,0);
+    return sensor_get_value(0, sonic_sensor,0);
 }
 int get_angle(){
     return sensor_get_value(0, gyro_sensor, 0);
