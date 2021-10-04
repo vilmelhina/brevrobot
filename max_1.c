@@ -188,5 +188,5 @@ int get_distance(){
     return sensor_get_value(0, sonic_sensor,0);
 }
 int get_angle(){
-    return sensor_get_value(0, gyro_sensor, 0);
+    return sensor_get_value(0, gyro_sensor, 0) % 360;
 }
