@@ -39,7 +39,7 @@ int main( void )
     int nearest_wall;
     
     //starta upp grejerna
-    initialize_max();
+    int initialize = initialize_max();
     
     //hitta närmaste väggen
     nearest_wall = find_wall();
