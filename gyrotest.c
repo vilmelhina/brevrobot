@@ -45,7 +45,7 @@ int main( void )
     int initialize = initialize_max();
     
     while(1){
-        printf("Angle: %d", get_angle());
+        printf("Angle: %d \n", get_angle());
     }
     
     brick_uninit(); //funktion från biblioteket

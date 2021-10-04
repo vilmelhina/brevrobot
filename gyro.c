@@ -9,8 +9,8 @@
 #define MOTOR_C            OUTC
 #define MOTOR_D            OUTD
 #define SENSOR_TOUCH    IN1
-#define SENSOR_GYRO        IN2
-#define SENSOR_3        IN3
+#define SENSOR_GYRO        IN3
+#define SENSOR_3        IN2
 #define SENSOR_4        IN4
 
 
