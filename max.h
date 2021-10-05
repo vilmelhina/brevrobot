@@ -25,6 +25,16 @@ POOL_T sonic_sensor;
 
 int max_hastighet;         /* variabel för max hastighet på motorn */
 
+int initialize_max();
+int find_wall();
+void go(int);
+void turn_to_angle(int);
+void go_until_distance(int);
+void drop_off();
+int initialize_max();
+int get_distance();
+int get_angle();
+
 //en funktion som startar upp och registrerar sensorer och lägen på sensorer, allt som behöver göras innan programmet börjar. Detta kommer i huvudsak från filerna exempelGyroTouch.c och exempelMotorTouch-2.c
 int initialize_max(){
     if ( !brick_init()) return ( 1 ); /* Initialiserar EV3-klossen */
@@ -97,7 +107,7 @@ int find_wall(){
 //åker det givna avståndet rakt framåt (modifierad version av koden VILLE & ELIN skrev)
 void go(int distance){
     float speedPercentage = 0.3; //den ska åka 30% av maxhastigheten
-    int seconds = (distance/0.15) * 1000; //räknar ut antal millisekunder den ska åka
+    int seconds = (distance/0.15) / 100; //räknar ut antal millisekunder den ska åka
     tacho_set_speed_sp( MOTOR_BOTH, max_hastighet * speedPercentage ); //sätter hastigheten
     tacho_run_forever(  MOTOR_BOTH ); //startar motorerna
     Sleep( seconds * 1000 ); //väntar i så många sekunder som räknats ut
