@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include "brick.h"
 #include <unistd.h>
+#include <stdlib.h>
 
 #define Sleep( msec ) usleep(( msec ) * 1000 ) /*Definerar sleep där Sleep(1000)= 1 sekund*/
 
@@ -111,21 +112,27 @@ int initialize_max(){
 
 //hittar vinkeln till närmaste väggen och returnerar det värdet
 int find_wall(){
-    int angle = get_angle();
-    int min_angle = angle;
+    int start_angle = get_angle();
+    int angle;
+    int min_angle = start_angle;
     int min_distance = get_distance();
     int current_distance;
     
-    for (int i=0; i<361; i++) {
+    tacho_set_speed_sp( MOTOR_RIGHT, max_hastighet * (-0.1) );
+    tacho_set_speed_sp( MOTOR_LEFT, max_hastighet * (0.1) );
+    tacho_run_forever(  MOTOR_BOTH ); //start turning
+    
+    do {
         current_distance = get_distance(); //avstånd fram just nu
-        int angle = get_angle(); //uppdatera vinkeln den står i just nu
-        printf("Angle: %d", angle);
+        angle = get_angle(); //uppdatera vinkeln den står i just nu
+        printf("Angle: %d \n", angle);
         if(current_distance < min_distance) {
             min_distance = current_distance;
             min_angle = angle;
         }
-        turn_to_angle(angle + 1); //vrid 1 grad
-    }
+    } while (abs(angle - start_angle) < 360);
+    
+    tacho_stop( MOTOR_BOTH ); //stop turning
     
     return min_angle; //return the angle that had the smallest distance forward
 }
@@ -148,9 +155,9 @@ void turn_to_angle(int goal_angle){
     tacho_set_speed_sp( MOTOR_LEFT, max_hastighet * (0.1) );
     tacho_run_forever(  MOTOR_BOTH ); //start turning
     
-    while (goal_angle != current_angle) {
+    while (current_angle%360 =! goal_angle%360 ) {
         current_angle = get_angle();
-        printf("Angle: %d", current_angle);
+        printf("Angle: %d \n", current_angle);
     }
     tacho_stop( MOTOR_BOTH ); //stop turning
 }
@@ -165,7 +172,7 @@ void go_until_distance(int distance_goal){
     
     while(distance > distance_goal){
         distance = get_distance();
-        printf("Distance: %d", distance);
+        printf("Distance: %d \n", distance);
     }
     
     tacho_stop( MOTOR_BOTH ); //stop driving
@@ -188,5 +195,5 @@ int get_distance(){
     return sensor_get_value(0, sonic_sensor,0);
 }
 int get_angle(){
-    return sensor_get_value(0, gyro_sensor, 0) % 360;
+    return sensor_get_value(0, gyro_sensor, 0);
 }
