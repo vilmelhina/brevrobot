@@ -1,10 +1,7 @@
 //
-//  max_1.c
-//  uppgift 1!!!!!!!!
-//
+//  max header
 //
 
-<<<<<<< HEAD
 #include <stdio.h>
 #include "brick.h"
 #include <unistd.h>
@@ -37,43 +34,7 @@ void drop_off();
 int initialize_max();
 int get_distance();
 int get_angle();
-=======
-#include "max.h"
 
->>>>>>> headerfil
-
-
-int main( void )
-{
-    int nearest_wall;
-    
-    //starta upp grejerna
-    int initialize = initialize_max();
-    
-    //hitta närmaste väggen
-    nearest_wall = find_wall();
-    
-    //snurra till 90 grader från närmaste väggen
-    turn_to_angle(nearest_wall + 90); // Till vänster
-    
-    //åk 250cm
-    go(250);
-    
-    //hitta närmaste väggen
-    nearest_wall = find_wall();
-    turn_to_angle(nearest_wall); //för uppgift 3 och 4, nearest_wall + 180
-    go_until_distance(30);
-    
-    //lämna av paketet
-    drop_off();
-    
-    brick_uninit(); //funktion från biblioteket
-    return(0);
-
-}
-
-
-<<<<<<< HEAD
 //en funktion som startar upp och registrerar sensorer och lägen på sensorer, allt som behöver göras innan programmet börjar. Detta kommer i huvudsak från filerna exempelGyroTouch.c och exempelMotorTouch-2.c
 int initialize_max(){
     if ( !brick_init()) return ( 1 ); /* Initialiserar EV3-klossen */
@@ -149,7 +110,7 @@ void go(int distance){
     int seconds = (distance/0.15) / 100; //räknar ut antal millisekunder den ska åka
     tacho_set_speed_sp( MOTOR_BOTH, max_hastighet * speedPercentage ); //sätter hastigheten
     tacho_run_forever(  MOTOR_BOTH ); //startar motorerna
-    Sleep( seconds * 1000  ); //väntar i så många sekunder som räknats ut
+    Sleep( seconds * 1000 ); //väntar i så många sekunder som räknats ut
     tacho_stop( MOTOR_BOTH ); //stoppar motorerna
 }
 
@@ -203,6 +164,3 @@ int get_distance(){
 int get_angle(){
     return sensor_get_value(0, gyro_sensor, 0);
 }
-=======
-
->>>>>>> headerfil
