@@ -155,7 +155,7 @@ void turn_to_angle(int goal_angle){
     tacho_set_speed_sp( MOTOR_LEFT, max_hastighet * (0.1) );
     tacho_run_forever(  MOTOR_BOTH ); //start turning
     
-    while (current_angle%360 =! goal_angle%360 ) {
+    while (current_angle%360 != goal_angle%360 ) {
         current_angle = get_angle();
         printf("Angle: %d \n", current_angle);
     }
