@@ -143,7 +143,7 @@ void go(int distance){
     int seconds = (distance/0.15) / 100; //räknar ut antal millisekunder den ska åka
     tacho_set_speed_sp( MOTOR_BOTH, max_hastighet * speedPercentage ); //sätter hastigheten
     tacho_run_forever(  MOTOR_BOTH ); //startar motorerna
-    Sleep( seconds * 1000 ); //väntar i så många sekunder som räknats ut
+    Sleep( seconds * 1000  ); //väntar i så många sekunder som räknats ut
     tacho_stop( MOTOR_BOTH ); //stoppar motorerna
 }
 
