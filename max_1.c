@@ -140,7 +140,7 @@ int find_wall(){
 //åker det givna avståndet rakt framåt (modifierad version av koden VILLE & ELIN skrev)
 void go(int distance){
     float speedPercentage = 0.3; //den ska åka 30% av maxhastigheten
-    int seconds = (distance/0.15) * 1000; //räknar ut antal millisekunder den ska åka
+    int seconds = (distance/0.15) / 100; //räknar ut antal millisekunder den ska åka
     tacho_set_speed_sp( MOTOR_BOTH, max_hastighet * speedPercentage ); //sätter hastigheten
     tacho_run_forever(  MOTOR_BOTH ); //startar motorerna
     Sleep( seconds * 1000 ); //väntar i så många sekunder som räknats ut
