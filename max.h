@@ -85,8 +85,8 @@ int find_wall(){
     int min_distance = get_distance();
     int current_distance;
     
-    tacho_set_speed_sp( MOTOR_RIGHT, max_hastighet * (-0.1) );
-    tacho_set_speed_sp( MOTOR_LEFT, max_hastighet * (0.1) );
+    tacho_set_speed_sp( MOTOR_RIGHT, max_hastighet * (-0.05) );
+    tacho_set_speed_sp( MOTOR_LEFT, max_hastighet * (0.05) );
     tacho_run_forever(  MOTOR_BOTH ); //start turning
     
     do {
@@ -118,8 +118,8 @@ void go(int distance){
 void turn_to_angle(int goal_angle){
     int current_angle = get_angle();
     
-    tacho_set_speed_sp( MOTOR_RIGHT, max_hastighet * (-0.1) );
-    tacho_set_speed_sp( MOTOR_LEFT, max_hastighet * (0.1) );
+    tacho_set_speed_sp( MOTOR_RIGHT, max_hastighet * (-0.05) );
+    tacho_set_speed_sp( MOTOR_LEFT, max_hastighet * (0.05) );
     tacho_run_forever(  MOTOR_BOTH ); //start turning
     
     while (current_angle%360 != goal_angle%360 ) {
@@ -133,8 +133,8 @@ void turn_to_angle(int goal_angle){
 void go_until_distance(int distance_goal){
     int distance = get_distance();
     
-    tacho_set_speed_sp( MOTOR_RIGHT, max_hastighet * (0.3) );
-    tacho_set_speed_sp( MOTOR_LEFT, max_hastighet * (0.3) );
+    tacho_set_speed_sp( MOTOR_RIGHT, max_hastighet * (0.1) );
+    tacho_set_speed_sp( MOTOR_LEFT, max_hastighet * (0.1) );
     tacho_run_forever(  MOTOR_BOTH ); //start driving
     
     while(distance > distance_goal){
