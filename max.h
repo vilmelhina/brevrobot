@@ -54,15 +54,15 @@ int initialize_max(){
     }
     
     //kolla att touch och gyro är inkopplade!!!
-    if(!sensor_is_plugged((SENSOR_TOUCH|SENSOR_GYRO), SENSOR_TYPE__NONE_)) {
-        printf("Stoppa in sensorer i port 1 och 2\n");
-        brick_uninit();
-        return(0);
-    }
+    //if(!sensor_is_plugged((SENSOR_TOUCH|SENSOR_GYRO), SENSOR_TYPE__NONE_)) {
+        //printf("Stoppa in sensorer i port 1 och 2\n");
+        //brick_uninit();
+        //return(0);
+    //}
     
     // TOUCH SENSOR
-    touch_sensor = sensor_search( LEGO_EV3_TOUCH ); // Registrerar en touch sensor på touch_sensor-variabeln
-    touch_set_mode_touch(touch_sensor); // anger vilken "mode" sensorn skall ha
+    //touch_sensor = sensor_search( LEGO_EV3_TOUCH ); // Registrerar en touch sensor på touch_sensor-variabeln
+    //touch_set_mode_touch(touch_sensor); // anger vilken "mode" sensorn skall ha
     
     //SONIC SENSOR
     sonic_sensor = sensor_search(LEGO_EV3_US);
@@ -72,7 +72,6 @@ int initialize_max(){
     /*Registrerar en sensor på sensor variabeln*/
     gyro_sensor = sensor_search(LEGO_EV3_GYRO);
     sensor_set_mode(gyro_sensor, LEGO_EV3_GYRO_GYRO_G_AND_A);
-    
     
     return 0;
 }
@@ -85,8 +84,8 @@ int find_wall(){
     int min_distance = get_distance();
     int current_distance;
     
-    tacho_set_speed_sp( MOTOR_RIGHT, max_hastighet * (-0.05) );
-    tacho_set_speed_sp( MOTOR_LEFT, max_hastighet * (0.05) );
+    tacho_set_speed_sp( MOTOR_RIGHT, max_hastighet * (-0.1) );
+    tacho_set_speed_sp( MOTOR_LEFT, max_hastighet * (0.1) );
     tacho_run_forever(  MOTOR_BOTH ); //start turning
     
     do {
@@ -118,8 +117,8 @@ void go(int distance){
 void turn_to_angle(int goal_angle){
     int current_angle = get_angle();
     
-    tacho_set_speed_sp( MOTOR_RIGHT, max_hastighet * (-0.05) );
-    tacho_set_speed_sp( MOTOR_LEFT, max_hastighet * (0.05) );
+    tacho_set_speed_sp( MOTOR_RIGHT, max_hastighet * (-0.1) );
+    tacho_set_speed_sp( MOTOR_LEFT, max_hastighet * (0.1) );
     tacho_run_forever(  MOTOR_BOTH ); //start turning
     
     while (current_angle%360 != goal_angle%360 ) {
