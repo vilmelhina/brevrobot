@@ -27,7 +27,7 @@ int main( void )
     //hitta närmaste väggen
     nearest_wall = find_wall();
     turn_to_angle(nearest_wall); //för uppgift 3 och 4, nearest_wall + 180
-    go_until_distance(400);
+    go_until_distance(300);
     
     //lämna av paketet
     drop_off();
