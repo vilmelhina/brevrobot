@@ -19,7 +19,7 @@ int main( void )
     nearest_wall = find_wall();
     
     //snurra till 90 grader från närmaste väggen
-    turn_to_angle(nearest_wall + 270); // till höger
+    turn_to_angle(nearest_wall - 90); // till höger
     
     //åk 250cm
     go(250);
