@@ -116,12 +116,13 @@ void go(int distance){
 //vrider sig till den givna vinkeln
 void turn_to_angle(int goal_angle){
     int current_angle = get_angle();
+    goal_angle = goal_angle%360;
     
     tacho_set_speed_sp( MOTOR_RIGHT, max_hastighet * (-0.05) );
     tacho_set_speed_sp( MOTOR_LEFT, max_hastighet * (0.05) );
     tacho_run_forever(  MOTOR_BOTH ); //start turning
     
-    while (current_angle%360 != goal_angle%360 ) {
+    while (current_angle%360 != goal_angle ) {
         current_angle = get_angle();
         printf("Angle: %d \n", current_angle);
     }
