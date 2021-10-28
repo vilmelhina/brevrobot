@@ -1,7 +1,7 @@
 //
 //  max_4.c
 //  uppgift 4!
-//
+//  orginalkod skriven av Elin och Vilhelmina, ändrad av alla gruppmedlemmar
 //
 
 #include "max.h"
