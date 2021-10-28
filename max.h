@@ -35,7 +35,8 @@ int initialize_max();
 int get_distance();
 int get_angle();
 
-//en funktion som startar upp och registrerar sensorer och lägen på sensorer, allt som behöver göras innan programmet börjar. Detta kommer i huvudsak från filerna exempelGyroTouch.c och exempelMotorTouch-2.c
+//en funktion som startar upp och registrerar sensorer och lägen på sensorer, allt som behöver göras innan programmet börjar.
+//Detta kommer i huvudsak från filerna exempelGyroTouch.c och exempelMotorTouch-2.c
 int initialize_max(){
     if ( !brick_init()) return ( 1 ); /* Initialiserar EV3-klossen */
     printf( "*** ( EV3 ) Hello! ***\n" );
@@ -53,17 +54,6 @@ int initialize_max(){
         return ( 0 );  /* Stänger av sig om motorer ej är inkopplade */
     }
     
-    //kolla att touch och gyro är inkopplade!!!
-    //if(!sensor_is_plugged((SENSOR_TOUCH|SENSOR_GYRO), SENSOR_TYPE__NONE_)) {
-        //printf("Stoppa in sensorer i port 1 och 2\n");
-        //brick_uninit();
-        //return(0);
-    //}
-    
-    // TOUCH SENSOR
-    //touch_sensor = sensor_search( LEGO_EV3_TOUCH ); // Registrerar en touch sensor på touch_sensor-variabeln
-    //touch_set_mode_touch(touch_sensor); // anger vilken "mode" sensorn skall ha
-    
     //SONIC SENSOR
     sonic_sensor = sensor_search(LEGO_EV3_US);
     us_set_mode_us_dist_cm(sonic_sensor);
@@ -76,7 +66,7 @@ int initialize_max(){
     return 0;
 }
 
-//hittar vinkeln till närmaste väggen och returnerar det värdet
+//hittar vinkeln till närmaste väggen och returnerar det värdet - skriven av Diddi
 int find_wall(){
     int start_angle = get_angle();
     int angle;
@@ -103,7 +93,7 @@ int find_wall(){
     return min_angle; //return the angle that had the smallest distance forward
 }
 
-//åker det givna avståndet rakt framåt (modifierad version av koden VILLE & ELIN skrev)
+//åker det givna avståndet rakt framåt - skriven av Elin och Vilhelmina
 void go(int distance){
     float speedPercentage = 0.3; //den ska åka 30% av maxhastigheten
     int seconds = (distance/0.15) / 100; //räknar ut antal millisekunder den ska åka
@@ -113,7 +103,7 @@ void go(int distance){
     tacho_stop( MOTOR_BOTH ); //stoppar motorerna
 }
 
-//vrider sig till den givna vinkeln
+//vrider sig till den givna vinkeln - skriven av Yas
 void turn_to_angle(int goal_angle){
     int current_angle = get_angle();
     goal_angle = goal_angle%360;
@@ -129,7 +119,7 @@ void turn_to_angle(int goal_angle){
     tacho_stop( MOTOR_BOTH ); //stop turning
 }
 
-//åker framåt tills väggen framför är så nära som det givna värdet
+//åker framåt tills väggen framför är så nära som det givna värdet - skriven av Elin och Vilhelmina
 void go_until_distance(int distance_goal){
     int distance = get_distance();
     
@@ -145,7 +135,7 @@ void go_until_distance(int distance_goal){
     tacho_stop( MOTOR_BOTH ); //stop driving
 }
 
-//lastar av sin post!
+//lastar av sin post! - skriven av gruppen tillsammans under gruppmöte
 void drop_off(){
     //vinka på motor c
     tacho_set_speed_sp( MOTOR_C, max_hastighet * (0.5) );  // Sätter hastigheten på båda motor c till positiv
@@ -157,6 +147,8 @@ void drop_off(){
     Sleep( 1000 );
     tacho_stop( MOTOR_C );
 }
+
+// dessa två funktioner skrevs av Yas, Diddi och Vilhelmina
 
 int get_distance(){
     return sensor_get_value(0, sonic_sensor,0);
