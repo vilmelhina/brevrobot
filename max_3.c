@@ -1,6 +1,7 @@
 //
 //  max_3.c
 //  uppgift 3!
+//  orginalkod skriven av Elin och Vilhelmina, ändrad av alla gruppmedlemmar
 //
 //
 
